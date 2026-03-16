@@ -16,16 +16,16 @@ public class Ui {
     }
 
     public void showEmptyDescriptionError(String command) {
-        System.out.println(" " + command + " activity cannot be empty, ensure a task is written after '" + command
+        System.out.println(" " + command + " Number cannot be empty, ensure a Module code is written after '" + command
                 + "'. Thankssssss!");
     }
 
     public void showInvalidCommandError() {
         System.out.println(
-                "Invalid command. Please input the instruction again begining with 'todo', 'deadline', 'event', 'mark', 'unmark', 'list', 'final' or 'bye'.");
+                "Invalid command. Please input the instruction again begining with 'bye'.");
     }
 
     public void showInvalidNumberError() {
-        System.out.println("Task does not exist. Choose another number.");
+        System.out.println("Module does not exist. Choose another number.");
     }
 }
