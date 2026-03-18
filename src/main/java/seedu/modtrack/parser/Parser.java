@@ -23,50 +23,50 @@ public class Parser {
         String arguments = parts.length > 1 ? parts[1].trim() : "";
 
         switch (commandWord) {
-        case "add":
-            return parseAdd(arguments);
-        case "delete":
-            return parseDelete(arguments);
-        case "mark":
-            return parseMark(arguments);
-        case "unmark":
-            return parseUnmark(arguments);
-        case "list":
-            return new ListCommand();
-        case "show":
-            return parseShow(arguments);
-        case "exit":
-        case "bye":
-            return new ExitCommand();
-        default:
-            throw new InvalidCommandException("Invalid command.");
+            case "add":
+                return this.parseAdd(arguments);
+            case "delete":
+                return this.parseDelete(arguments);
+            case "mark":
+                return this.parseMark(arguments);
+            case "unmark":
+                return this.parseUnmark(arguments);
+            case "list":
+                return new ListCommand();
+            case "show":
+                return this.parseShow(arguments);
+            case "exit":
+            case "bye":
+                return new ExitCommand();
+            default:
+                throw new InvalidCommandException("Invalid command.");
         }
     }
 
     private Command parseAdd(String arguments) throws InvalidCommandException {
-        String modName = extractValue(arguments, "n/");
-        String yearText = extractValue(arguments, "y/");
-        String semText = extractValue(arguments, "s/");
+        String modName = this.extractValue(arguments, "n/");
+        String yearText = this.extractValue(arguments, "y/");
+        String semText = this.extractValue(arguments, "s/");
 
-        int year = parseYear(yearText);
-        int semester = parseSemester(semText);
+        int year = this.parseYear(yearText);
+        int semester = this.parseSemester(semText);
 
-        int credits = 4; // 일단 default
+        int credits = 4; // default
         return new AddCommand(modName, year, semester, credits);
     }
 
     private Command parseDelete(String arguments) throws InvalidCommandException {
-        String modName = extractValue(arguments, "n/");
+        String modName = this.extractValue(arguments, "n/");
         return new DeleteCommand(modName);
     }
 
     private Command parseMark(String arguments) throws InvalidCommandException {
-        String modName = extractValue(arguments, "n/");
+        String modName = this.extractValue(arguments, "n/");
         return new MarkCommand(modName);
     }
 
     private Command parseUnmark(String arguments) throws InvalidCommandException {
-        String modName = extractValue(arguments, "n/");
+        String modName = this.extractValue(arguments, "n/");
         return new UnmarkCommand(modName);
     }
 
@@ -86,7 +86,7 @@ public class Parser {
         start += prefix.length();
         int nextPrefixIndex = input.length();
 
-        String[] prefixes = {"n/", "y/", "s/", "t/"};
+        String[] prefixes = { "n/", "y/", "s/", "t/" };
         for (String p : prefixes) {
             if (p.equals(prefix)) {
                 continue;
