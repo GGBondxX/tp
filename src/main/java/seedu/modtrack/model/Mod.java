@@ -1,3 +1,5 @@
+package seedu.modtrack.model;
+
 public class Mod {
     protected String modName;
     protected int year;
@@ -44,6 +46,10 @@ public class Mod {
         modString += "Status: " + (isComplete? "Completed" : "Incomplete") + "\n";
         modString += "Modular Credits: " + this.modCredits + "\n";
         return modString;
+    }
+
+    public boolean getIsComplete() {
+        return isComplete;
     }
 
     public String toFileFormat() {

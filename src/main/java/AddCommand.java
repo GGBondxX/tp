@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import seedu.modtrack.model.Mod;
+
 public class AddCommand extends Command{
     private String modName;
     private int year;

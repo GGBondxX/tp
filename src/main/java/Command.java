@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import seedu.modtrack.model.Mod;
+
 public abstract class Command {
     protected boolean isExit = false;
 

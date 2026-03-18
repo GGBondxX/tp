@@ -2,9 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import seedu.modtrack.model.Mod;
 
 public class Storage {
     private static final String FILE_PATH = "./data/ModTrack.txt";
@@ -38,30 +39,30 @@ public class Storage {
         fw.close();
     }
 
-    public ArrayList<Mod> load() throws FileNotFoundException {
-
-        File f = new File(FILE_PATH);
-        Scanner s = new Scanner(f);
-        ArrayList<Mod> list = new ArrayList<>();
-        String line, status, name, year, semester, credits;
-        String[] words;
-        while(s.hasNext()) {
-            Mod newMod = null;
-            line = s.nextLine();
-            words = line.split("\\|");
-            status = words[0].trim();
-            name = words[1].trim();
-            year = words[2].trim();
-            semester = words[3].trim();
-            credits = words[4].trim();
-
-            newMod = new Mod(name, year, semester, credits);
-
-            if (status.equals("1") && newMod != null) {
-                newMod.setToDone();
-            }
-            list.add(newMod);
-        }
-        return list;
-    }
+//    public ArrayList<Mod> load() throws FileNotFoundException {
+//
+//        File f = new File(FILE_PATH);
+//        Scanner s = new Scanner(f);
+//        ArrayList<Mod> list = new ArrayList<>();
+//        String line, status, name, year, semester, credits;
+//        String[] words;
+//        while(s.hasNext()) {
+//            Mod newMod = null;
+//            line = s.nextLine();
+//            words = line.split("\\|");
+//            status = words[0].trim();
+//            name = words[1].trim();
+//            year = words[2].trim();
+//            semester = words[3].trim();
+//            credits = words[4].trim();
+//
+//            newMod = new Mod(name, year, semester, credits);
+//
+//            if (status.equals("1") && newMod != null) {
+//                newMod.setToDone();
+//            }
+//            list.add(newMod);
+//        }
+//        return list;
+//    }
 }
