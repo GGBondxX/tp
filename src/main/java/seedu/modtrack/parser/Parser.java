@@ -31,66 +31,66 @@ public class Parser {
         String arguments = parts.length > 1 ? parts[1].trim() : "";
 
         switch (commandWord) {
-        case "add":
-            return parseAdd(arguments);
-        case "delete":
-            return parseDelete(arguments);
-        case "mark":
-            return parseMark(arguments);
-        case "unmark":
-            return parseUnmark(arguments);
-        case "progress":
-            return parseProgress(arguments);
-        case "exempt":
-            return parseExempt(arguments);
-        case "transfer":
-            return parseTransfer(arguments);
-        case "find":
-            return parseFind(arguments);
-        case "prereq":
-            return parsePrereq(arguments);
-        case "list":
-            return new ListCommand();
-        case "show":
-            return parseShow(arguments);
-        case "exit":
-        case "bye":
-            return new ExitCommand();
-        default:
-            throw new InvalidCommandException("Invalid command.");
+            case "add":
+                return this.parseAdd(arguments);
+            case "delete":
+                return this.parseDelete(arguments);
+            case "mark":
+                return this.parseMark(arguments);
+            case "unmark":
+                return this.parseUnmark(arguments);
+            case "progress":
+                return this.parseProgress(arguments);
+            case "exempt":
+                return this.parseExempt(arguments);
+            case "transfer":
+                return this.parseTransfer(arguments);
+            case "find":
+                return this.parseFind(arguments);
+            case "prereq":
+                return this.parsePrereq(arguments);
+            case "list":
+                return new ListCommand();
+            case "show":
+                return this.parseShow(arguments);
+            case "exit":
+            case "bye":
+                return new ExitCommand();
+            default:
+                throw new InvalidCommandException("Invalid command.");
         }
     }
 
     private Command parseAdd(String arguments) throws InvalidCommandException {
-        String modName = extractValue(arguments, "n/");
-        String yearText = extractValue(arguments, "y/");
-        String semText = extractValue(arguments, "s/");
+        String modName = this.extractValue(arguments, "n/");
+        String yearText = this.extractValue(arguments, "y/");
+        String semText = this.extractValue(arguments, "s/");
 
-        int year = parseYear(yearText);
-        int semester = parseSemester(semText);
+        int year = this.parseYear(yearText);
+        int semester = this.parseSemester(semText);
 
         int credits = 4;
         return new AddCommand(modName, year, semester, credits);
     }
 
     private Command parseDelete(String arguments) throws InvalidCommandException {
-        String modName = extractValue(arguments, "n/");
+        String modName = this.extractValue(arguments, "n/");
         return new DeleteCommand(modName);
     }
 
     private Command parseMark(String arguments) throws InvalidCommandException {
-        String modName = extractValue(arguments, "n/");
+        String modName = this.extractValue(arguments, "n/");
         return new MarkCommand(modName);
     }
 
     private Command parseUnmark(String arguments) throws InvalidCommandException {
-        String modName = extractValue(arguments, "n/");
+        String modName = this.extractValue(arguments, "n/");
         return new UnmarkCommand(modName);
     }
 
     private Command parseProgress(String arguments) throws InvalidCommandException {
-        String modName = extractValue(arguments, "n/");
-        String progressText = extractValue(arguments, "p/");
+        String modName = this.extractValue(arguments, "n/");
+        String progressText = this.extractValue(arguments, "p/");
 
         int percentage;
         try {
@@ -107,17 +107,17 @@ public class Parser {
     }
 
     private Command parseExempt(String arguments) throws InvalidCommandException {
-        String modName = extractValue(arguments, "n/");
+        String modName = this.extractValue(arguments, "n/");
         return new ExemptCommand(modName);
     }
 
     private Command parseTransfer(String arguments) throws InvalidCommandException {
-        String modName = extractValue(arguments, "n/");
+        String modName = this.extractValue(arguments, "n/");
         return new TransferCommand(modName);
     }
 
     private Command parseFind(String arguments) throws InvalidCommandException {
-        String keyword = extractValue(arguments, "n/");
+        String keyword = this.extractValue(arguments, "n/");
         return new FindCommand(keyword);
     }
 
@@ -131,8 +131,8 @@ public class Parser {
         String rest = parts[1];
 
         if (action.equals("add")) {
-            String modName = extractValue(rest, "n/");
-            String prereqText = extractValue(rest, "p/");
+            String modName = this.extractValue(rest, "n/");
+            String prereqText = this.extractValue(rest, "p/");
             String[] prereqArray = prereqText.split(",");
             ArrayList<String> prereqs = new ArrayList<>();
 
@@ -142,7 +142,7 @@ public class Parser {
 
             return new AddPrereqCommand(modName, prereqs);
         } else if (action.equals("show")) {
-            String modName = extractValue(rest, "n/");
+            String modName = this.extractValue(rest, "n/");
             return new ShowPrereqCommand(modName);
         }
 
@@ -165,7 +165,7 @@ public class Parser {
         start += prefix.length();
         int nextPrefixIndex = input.length();
 
-        String[] prefixes = {"n/", "y/", "s/", "t/", "p/"};
+        String[] prefixes = { "n/", "y/", "s/", "t/", "p/" };
         for (String p : prefixes) {
             if (p.equals(prefix)) {
                 continue;
