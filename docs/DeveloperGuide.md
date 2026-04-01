@@ -1,37 +1,66 @@
-# Developer Guide
+# CS2113 T09-1 tp Developer Guide
 
 ## Acknowledgements
 
 * **AddressBook-Level 3 (AB3):** The architectural design, Developer Guide structure, and certain Command pattern implementations were adapted from the [AddressBook-Level 3 project](https://se-education.org/addressbook-level3/) created by the SE-EDU initiative.
 * **Individual Projects (iP):** The core CLI parsing logic and the task-handling structures were adapted from the team members' individual projects which served as a foundation for the Command and Parser classes in ModTrack.
-## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+## Table of Contents
+1. [Setup Guide](#setup-guide)
 
-### Storage component
+2. [Design](#design)
+    - [UI component](#ui-component)
+    - [Command component](#command-component)
+    - [Storage component](#storage-component)
+    - [Parser component](#parser-component)
 
-**API:** `Storage.java`
+3. [Implementation](#implementation)
+    - [Haofu's enhancements](#haofus-enhancements)
+        - [Add feature](#1-add-feature)
+        - [Delete feature](#2-delete-feature)
+    - [Yang Han's enchancements](#yang-hans-enchancement)
+        - [List feature](#3-list-feature)
+    - [Christina's enhancement](#christinas-enchancements)
+        - [Mark feature](#4-mark-feature)
+        - [Unmark feature](#5-unmark-feature)
+    - [Ang Lee's enhancement](#ang-lees-enhancements)
+        - [Exit feature](#6-exit-feature)
+        - [Show Graduation Requirement feature](#7-show-graduation-requirement-feature)
 
-![img_3.png](img_3.png)
+4. [Product Scope](#product-scope)
+    - [Target User Profile](#target-user-profile)
+    - [Value Proposition](#value-proposition)
 
-The `Storage` component,
+5. [User Stories](#user-stories)
 
-* can save and load module tracking data in a pipe-delimited text format, and read them back into corresponding `Mod` objects.
-* handles the initialization of the local data directory and file (`./data/ModTrack.txt`) automatically upon startup.
-* depends on classes in the `Model` component (because the `Storage` component's job is to save/retrieve `Mod` objects that belong to the `Model`).
+6. [Non-Functional Requirements](#non-functional-requirements)
 
-### Command Mechanism
+7. [Glossary](#glossary)
 
+## Setup Guide
+
+### Steps
+
+1. Download the tp.jar file from release v1.0 into the folder where you plan to run the application
+
+2. Go to project folder where the jar file is located
+
+3. Run the application using java
+```
+java -jar tp.jar
+```
+
+{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+
+## Design
+### UI Component
+
+### Command Component
 The Command mechanism is facilitated by the abstract `Command` class. It serves as the base for all executable actions within **ModTrack**, allowing the `Parser` to delegate logic to specific command objects.
-
-#### Implementation
 
 The abstract `Command` class defines a core method: `execute(ArrayList<Mod> list)`. Concrete subclasses implement this method to perform specific operations on the module list.
 
 While the system includes several commands (such as `MarkCommand`, `ListCommand`, and `ExitCommand`), the following classes represent the primary data-manipulation logic:
-
-* **`AddCommand`**: Stores details for a new module (`name`, `year`, `semester`, `credits`). Its `execute` method performs a duplicate check before adding a new `Mod` object to the list.
-* **`DeleteCommand`**: Stores a `modName` string. Its `execute` method iterates through the list to find and remove the matching module.
 
 **Code Snippet: Abstract Command Structure**
 ```java
@@ -41,11 +70,6 @@ public abstract class Command {
     public boolean isExit() { return this.isExit; }
 }
 ```
-The following sequence diagram shows how an add operation goes through the `Logic` component:
-![img_1.png](img_1.png)
-
-The following sequence diagram shows how a delete operation goes through the `Logic` component:
-![img_2.png](img_2.png)
 
 #### Design Considerations
 
@@ -62,6 +86,46 @@ The following sequence diagram shows how a delete operation goes through the `Lo
 
 * **Approach:** Concrete commands handle their own internal validation. For instance, `AddCommand` prevents duplicate entries by checking the existing list, while `DeleteCommand` provides feedback if a module is not found.
 * **Reasoning:** This ensures that the "business rules" for a specific action are contained within the class responsible for that action, leading to high functional cohesion.
+
+### Storage Component
+
+**API:** `Storage.java`
+
+![img_3.png](img_3.png)
+
+The `Storage` component,
+
+* can save and load module tracking data in a pipe-delimited text format, and read them back into corresponding `Mod` objects.
+* handles the initialization of the local data directory and file (`./data/ModTrack.txt`) automatically upon startup.
+* depends on classes in the `Model` component (because the `Storage` component's job is to save/retrieve `Mod` objects that belong to the `Model`).
+
+### Parser Component
+
+
+{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+
+## Implementation
+### Haofu's enhancements
+#### 1. Add Feature
+* **`AddCommand`**: Stores details for a new module (`name`, `year`, `semester`, `credits`). Its `execute` method performs a duplicate check before adding a new `Mod` object to the list.
+  The following sequence diagram shows how an add operation goes through the `Logic` component:
+  ![img_1.png](img_1.png)
+
+#### 2. Delete Feature
+* **`DeleteCommand`**: Stores a `modName` string. Its `execute` method iterates through the list to find and remove the matching module.
+  The following sequence diagram shows how a delete operation goes through the `Logic` component:
+  ![img_2.png](img_2.png)
+
+### Yang Han's enchancement
+#### 3. List Feature
+
+### Christina's enchancements
+#### 4. Mark Feature
+#### 5. Unmark Feature
+
+### Ang Lee's enhancements
+#### 6. Exit Feature
+#### 7. Show Graduation Requirement Feature
 
 ## Product scope
 ### Target user profile
