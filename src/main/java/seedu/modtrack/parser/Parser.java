@@ -1,0 +1,204 @@
+package seedu.modtrack.parser;
+
+import java.util.ArrayList;
+
+import seedu.modtrack.model.AddCommand;
+import seedu.modtrack.model.AddPrereqCommand;
+import seedu.modtrack.model.Command;
+import seedu.modtrack.model.DeleteCommand;
+import seedu.modtrack.model.ExitCommand;
+import seedu.modtrack.model.ExemptCommand;
+import seedu.modtrack.model.FindCommand;
+import seedu.modtrack.model.ListCommand;
+import seedu.modtrack.model.MarkCommand;
+import seedu.modtrack.model.SetProgressCommand;
+import seedu.modtrack.model.ShowGradReqCommand;
+import seedu.modtrack.model.ShowPrereqCommand;
+import seedu.modtrack.model.TransferCommand;
+import seedu.modtrack.model.UnmarkCommand;
+
+public class Parser {
+
+    public Command parse(String input) throws InvalidCommandException {
+        if (input == null || input.trim().isEmpty()) {
+            throw new InvalidCommandException("Input cannot be empty.");
+        }
+
+        String trimmedInput = input.trim();
+        String[] parts = trimmedInput.split("\\s+", 2);
+
+        String commandWord = parts[0].toLowerCase();
+        String arguments = parts.length > 1 ? parts[1].trim() : "";
+
+        switch (commandWord) {
+        case "add":
+            return parseAdd(arguments);
+        case "delete":
+            return parseDelete(arguments);
+        case "mark":
+            return parseMark(arguments);
+        case "unmark":
+            return parseUnmark(arguments);
+        case "progress":
+            return parseProgress(arguments);
+        case "exempt":
+            return parseExempt(arguments);
+        case "transfer":
+            return parseTransfer(arguments);
+        case "find":
+            return parseFind(arguments);
+        case "prereq":
+            return parsePrereq(arguments);
+        case "list":
+            return new ListCommand();
+        case "show":
+            return parseShow(arguments);
+        case "exit":
+        case "bye":
+            return new ExitCommand();
+        default:
+            throw new InvalidCommandException("Invalid command.");
+        }
+    }
+
+    private Command parseAdd(String arguments) throws InvalidCommandException {
+        String modName = extractValue(arguments, "n/");
+        String yearText = extractValue(arguments, "y/");
+        String semText = extractValue(arguments, "s/");
+
+        int year = parseYear(yearText);
+        int semester = parseSemester(semText);
+
+        int credits = 4;
+        return new AddCommand(modName, year, semester, credits);
+    }
+
+    private Command parseDelete(String arguments) throws InvalidCommandException {
+        String modName = extractValue(arguments, "n/");
+        return new DeleteCommand(modName);
+    }
+
+    private Command parseMark(String arguments) throws InvalidCommandException {
+        String modName = extractValue(arguments, "n/");
+        return new MarkCommand(modName);
+    }
+
+    private Command parseUnmark(String arguments) throws InvalidCommandException {
+        String modName = extractValue(arguments, "n/");
+        return new UnmarkCommand(modName);
+    }
+
+    private Command parseProgress(String arguments) throws InvalidCommandException {
+        String modName = extractValue(arguments, "n/");
+        String progressText = extractValue(arguments, "p/");
+
+        int percentage;
+        try {
+            percentage = Integer.parseInt(progressText);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException("Progress must be an integer from 0 to 100.");
+        }
+
+        if (percentage < 0 || percentage > 100) {
+            throw new InvalidCommandException("Progress must be between 0 and 100.");
+        }
+
+        return new SetProgressCommand(modName, percentage);
+    }
+
+    private Command parseExempt(String arguments) throws InvalidCommandException {
+        String modName = extractValue(arguments, "n/");
+        return new ExemptCommand(modName);
+    }
+
+    private Command parseTransfer(String arguments) throws InvalidCommandException {
+        String modName = extractValue(arguments, "n/");
+        return new TransferCommand(modName);
+    }
+
+    private Command parseFind(String arguments) throws InvalidCommandException {
+        String keyword = extractValue(arguments, "n/");
+        return new FindCommand(keyword);
+    }
+
+    private Command parsePrereq(String arguments) throws InvalidCommandException {
+        String[] parts = arguments.split("\\s+", 2);
+        if (parts.length < 2) {
+            throw new InvalidCommandException("Use 'prereq add ...' or 'prereq show ...'");
+        }
+
+        String action = parts[0].toLowerCase();
+        String rest = parts[1];
+
+        if (action.equals("add")) {
+            String modName = extractValue(rest, "n/");
+            String prereqText = extractValue(rest, "p/");
+            String[] prereqArray = prereqText.split(",");
+            ArrayList<String> prereqs = new ArrayList<>();
+
+            for (String prereq : prereqArray) {
+                prereqs.add(prereq.trim().toUpperCase());
+            }
+
+            return new AddPrereqCommand(modName, prereqs);
+        } else if (action.equals("show")) {
+            String modName = extractValue(rest, "n/");
+            return new ShowPrereqCommand(modName);
+        }
+
+        throw new InvalidCommandException("Unknown prereq command.");
+    }
+
+    private Command parseShow(String arguments) throws InvalidCommandException {
+        if (arguments.equalsIgnoreCase("grad req")) {
+            return new ShowGradReqCommand();
+        }
+        throw new InvalidCommandException("Unknown show command.");
+    }
+
+    private String extractValue(String input, String prefix) throws InvalidCommandException {
+        int start = input.indexOf(prefix);
+        if (start == -1) {
+            throw new InvalidCommandException("Missing field: " + prefix);
+        }
+
+        start += prefix.length();
+        int nextPrefixIndex = input.length();
+
+        String[] prefixes = {"n/", "y/", "s/", "t/", "p/"};
+        for (String p : prefixes) {
+            if (p.equals(prefix)) {
+                continue;
+            }
+            int index = input.indexOf(p, start);
+            if (index != -1 && index < nextPrefixIndex) {
+                nextPrefixIndex = index;
+            }
+        }
+
+        String value = input.substring(start, nextPrefixIndex).trim();
+        if (value.isEmpty()) {
+            throw new InvalidCommandException("Empty value for: " + prefix);
+        }
+
+        return value;
+    }
+
+    private int parseYear(String text) throws InvalidCommandException {
+        String normalized = text.toUpperCase().replace("YEAR", "").trim();
+        try {
+            return Integer.parseInt(normalized);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException("Year must be in the form YEAR1, YEAR2, YEAR3...");
+        }
+    }
+
+    private int parseSemester(String text) throws InvalidCommandException {
+        String normalized = text.toUpperCase().replace("SEM", "").trim();
+        try {
+            return Integer.parseInt(normalized);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException("Semester must be in the form SEM1 or SEM2.");
+        }
+    }
+}
