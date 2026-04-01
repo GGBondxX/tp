@@ -12,7 +12,7 @@ public class ListCompareCommand extends Command {
         ArrayList<Mod> missing = new ArrayList<>();
 
         for (Mod reqMod : requiredModules) {
-            for (Mod task : taskList){
+            for (Mod task : taskList) {
                 if (task.getModName().equals(reqMod.getModName())) {
                     completed.add(reqMod);
                 } else {

@@ -56,9 +56,9 @@ public class Parser {
             return this.parseShow(arguments);
         case "exit":
         case "bye":
-                return new ExitCommand();
-            default:
-                throw new InvalidCommandException("Invalid command.");
+            return new ExitCommand();
+        default:
+            throw new InvalidCommandException("Invalid command.");
         }
     }
 
@@ -152,10 +152,10 @@ public class Parser {
 
     private Command parseList(String arguments) throws InvalidCommandException {
         String trimmedArgs = arguments.trim();
-        if(trimmedArgs.contains("c/")){
+        if (trimmedArgs.contains("c/")) {
             return new ListCompareCommand();
         }
-        if(trimmedArgs.isEmpty()){
+        if (trimmedArgs.isEmpty()) {
             return new ListCommand();
         }
         throw new InvalidCommandException("Unknown list command.");
@@ -177,7 +177,7 @@ public class Parser {
         start += prefix.length();
         int nextPrefixIndex = input.length();
 
-        String[] prefixes = { "n/", "y/", "s/", "t/", "p/" };
+        String[] prefixes = {"n/", "y/", "s/", "t/", "p/"};
         for (String p : prefixes) {
             if (p.equals(prefix)) {
                 continue;
