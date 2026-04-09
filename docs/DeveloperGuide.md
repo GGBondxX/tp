@@ -880,18 +880,27 @@ The transfer feature directly affects `list c/` and graduation requirement displ
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
+| Version | As a ... | I want to ... | So that I can ... |
 |--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v1.0|user|add a module with its module code and title|record modules I have taken|
-|v1.0|user|delete a module entry|remove modules I added by mistake|
-|v1.0|user|mark a module as completed|track my academic progress|
-|v1.0|user|view all completed modules|know what I have fulfilled|
-|v1.0|user|view all uncompleted required modules|plan future semesters|
-|v1.0|user|view the total modular credits earned|track my graduation progress|
-|v1.0|user|view the remaining modular credits required|plan my remaining semesters|
-|v1.0|user|compare my completed modules with graduation requirements|see unmet requirement|
-|v1.0|user|assign a module to a specific semester|track when I took it|
+| v1.0 | new user | see usage instructions | refer to them when I forget how to use the application |
+| v1.0 | user | add a module with its module code and title | record modules I have taken |
+| v1.0 | user | delete a module entry | remove modules I added by mistake |
+| v1.0 | user | mark a module as completed | track my academic progress |
+| v1.0 | user | view all completed modules | know what I have fulfilled |
+| v1.0 | user | view all uncompleted required modules | plan future semesters |
+| v1.0 | user | view the total modular credits earned | track my graduation progress |
+| v1.0 | user | view the remaining modular credits required | plan my remaining semesters |
+| v1.0 | user | compare my completed modules with graduation requirements | see unmet requirement |
+| v1.0 | user | assign a module to a specific semester | track when I took it |
+| v1.0 | user | mark a module as uncompleted | correct mistakes in my progress tracking |
+||
+| v2.0 | user | exempt a module | reflect credit exemptions (e.g. APC) in my graduation progress |
+| v2.0 | user | transfer a module | record modules taken from SEP or other institutions |
+| v2.0 | user | add prerequisites to a module | track dependencies between modules |
+| v2.0 | user | view prerequisites of a module | plan my module schedule more effectively |
+| v2.0 | user | compare my module list against graduation requirements | identify missing modules more accurately |
+| v2.0 | user | clear all my data | reset my tracker when starting fresh |
+| v2.0 | user | exit the application safely | ensure my data is saved before closing |
 
 
 ## Non-Functional Requirements
