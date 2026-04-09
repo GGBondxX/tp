@@ -45,7 +45,7 @@ public class AddCommand extends Command {
 
                 ui.showDivider();
                 if (!existingMod.getIsComplete()) {
-                    ui.showExistingIncompleteMoudleError(existingMod);
+                    ui.showExistingIncompleteModuleError(existingMod);
                 } else {
                     ui.showDuplicateModuleError();
                 }
