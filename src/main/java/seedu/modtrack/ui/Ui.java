@@ -23,6 +23,24 @@ public class Ui {
         System.out.println("----------------------------------------------------");
     }
 
+    public void showEmptyDescriptionError(String command) {
+        System.out.println(" " + command + " Number cannot be empty, ensure a Module code is written after '" + command
+                + "'. Thankssssss!");
+    }
+
+    public void showInvalidCommandError() {
+        System.out.println(
+                "Invalid command. Please input the instruction again begining with 'bye'.");
+    }
+
+    public void showInvalidNumberError() {
+        System.out.println("Module does not exist. Choose another number.");
+    }
+
+    public void showSaveError() {
+        System.out.println("Error saving data. Please try again.");
+    }
+
     public void showNoModulesFound() {
         System.out.println("No modules found in the list.");
     }
@@ -79,31 +97,13 @@ public class Ui {
     }
 
     public void showMatchingModule(Mod mod) {
-        System.out.println("--------------------");
+        this.showDivider();
         System.out.println(mod);
     }
 
     public void showTransferredModule(Mod mod) {
         System.out.println("Module marked as transferred:");
         System.out.println(mod.getModName());
-    }
-
-    public void showEmptyDescriptionError(String command) {
-        System.out.println(" " + command + " Number cannot be empty, ensure a Module code is written after '" + command
-                + "'. Thankssssss!");
-    }
-
-    public void showInvalidCommandError() {
-        System.out.println(
-                "Invalid command. Please input the instruction again begining with 'bye'.");
-    }
-
-    public void showInvalidNumberError() {
-        System.out.println("Module does not exist. Choose another number.");
-    }
-
-    public void showSaveError() {
-        System.out.println("Error saving data. Please try again.");
     }
 
     public void showMarkedCourse(Mod mod) {
@@ -128,7 +128,7 @@ public class Ui {
     }
 
     public void showComparedList(ArrayList<Mod> completedModules, ArrayList<Mod> missingModules) {
-        System.out.println("____________________________________________________________");
+        this.showDivider();
         System.out.println("Comparison with Graduation Requirements (CE):");
 
         System.out.println("\n✔ COMPLETED MODULES:");
@@ -148,7 +148,7 @@ public class Ui {
                 System.out.println(mod);
             }
         }
-        System.out.println("____________________________________________________________");
+        this.showDivider();
     }
 
     public void showGradReq() {
