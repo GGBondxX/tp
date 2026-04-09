@@ -108,12 +108,19 @@ public class Storage {
     private Mod parseCurrentSevenPart(String[] parts) {
         String status = parts[0];
         String name = parts[1];
+
+        assert !name.isEmpty() : "Module name cannot be empty";
+
         int year = Integer.parseInt(parts[2]);
         int semester = Integer.parseInt(parts[3]);
         int credits = Integer.parseInt(parts[4]);
 
         String completionType;
         String prereqText;
+
+        assert year > 0 : "Year must be positive";
+        assert semester == 1 || semester == 2 : "Invalid semester";
+        assert credits > 0 : "Credits must be positive";
 
         if (parts.length == 7) {
             completionType = parts[5];
@@ -122,6 +129,11 @@ public class Storage {
             int progress = Integer.parseInt(parts[5]); // you can use or ignore this
             completionType = parts[6];
             prereqText = parts[7];
+
+            assert progress >= 0 && progress <= 100 : "Progress percentage must be between 0 and 100";
+            assert completionType.equals("NORMAL") || completionType.equals("EXEMPTED") || completionType.equals("TRANSFERRED")
+                    : "Invalid completion type";
+            assert prereqText != null : "Prerequisite text cannot be null";
         }
 
         Mod mod = new Mod(name, year, semester, credits);
