@@ -2,6 +2,7 @@ package seedu.modtrack.model;
 
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import seedu.modtrack.module.Mod;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
