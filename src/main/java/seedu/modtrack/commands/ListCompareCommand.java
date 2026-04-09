@@ -15,16 +15,16 @@ public class ListCompareCommand extends Command {
         ArrayList<Mod> missing = new ArrayList<>();
 
         for (Mod reqMod : requiredModules) {
-            boolean isFound = false;
+            boolean isFoundAndComplete = false;
 
             for (Mod task : taskList) {
-                if (task.getModName().equalsIgnoreCase(reqMod.getModName())) {
-                    isFound = true;
-                    break; // Stop looking once we find it
+                if (task.getModName().equalsIgnoreCase(reqMod.getModName())&& task.getIsComplete()) {
+                    isFoundAndComplete = true;
+                    break;
                 }
             }
 
-            if (isFound) {
+            if (isFoundAndComplete) {
                 completed.add(reqMod);
             } else {
                 missing.add(reqMod);
