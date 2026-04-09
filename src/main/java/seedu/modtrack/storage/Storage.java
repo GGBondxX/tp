@@ -41,12 +41,11 @@ public class Storage {
     public void save(ArrayList<Mod> list) throws IOException {
         assert list != null : "Mod list cannot be null";
 
-        FileWriter fw = new FileWriter(FILE_PATH);
-        for (Mod mod : list) {
-            assert mod != null : "Mod in list cannot be null";
-            fw.write(mod.toFileFormat() + System.lineSeparator());
+        try (FileWriter fw = new FileWriter(FILE_PATH)) {
+            for (Mod mod : list) {
+                fw.write(mod.toFileFormat() + System.lineSeparator());
+            }
         }
-        fw.close();
     }
 
     public ArrayList<Mod> load() {
