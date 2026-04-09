@@ -47,15 +47,39 @@
 
 3. Run the application using java
 ```
-java -jar tp.jar
+java -jar modtrack.jar
 ```
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
-
 ## Design
-**ModTrack** (Modtrack.java) launches the application and shuts it down when the exit command is called:
-- At program start: It calls
+The architecture of ModTrack follows a layered approach, ensuring a clean separation of concerns. The application consists of four main components:
 
+UI: The interface that handles all user interactions (input and output).
+
+Logic: Consists of the Parser and Command classes that process user instructions.
+
+Model: Responsible for holding the module data in memory (e.g., Mod, ReferenceList).
+
+Storage: Manages the reading and writing of data to the local hard disk.
+
+At program start, ModTrack performs the following initialization steps:
+
+* Initializes the UI to greet the user.
+* Calls Storage to load existing module data from the save file. If no file exists, it initializes an empty ModList.
+* Loads the ReferenceList to provide the baseline for graduation requirements.
+
+Once initialized, ModTrack enters a while loop that continues until an ExitCommand is triggered. In each iteration:
+* Input: The UI captures a raw string from the user.
+* Parsing: The Parser transforms the string into a specific Command object (e.g., AddCommand, FindCommand).
+* Execution: The Command is executed, modifying the Model (the taskList).
+* Persistence: Immediately after execution, ModTrack calls Storage to save the updated taskList. This "save-on-change" policy prevents data loss in case of unexpected crashes.
+* Termination Check: The loop checks the command.isExit() flag. If true, the loop terminates.
+
+Before the program terminates, ModTrack ensures a clean exit by:
+
+*  Triggering a final Storage.save() to ensure all changes are synchronized.
+* Calling the UI to display the goodbye message.
+
+![img_10.png](Architecture Diagram.png)
 ### UI Component
 
 The UI component is responsible for handling interactions between the user and the system. In **ModTrack**, the UI is implemented as a Command Line Interface (CLI).
@@ -158,8 +182,7 @@ The deletion mechanism is also facilitated by `VersionedAddressBook`. Upon execu
 The following sequence diagram shows how a delete operation goes through the `Logic` component:
 ![img_7.png](img_7.png)
 
-### Yang Han's enhancements
-#### List Feature
+#### 3. List Feature
 
 User inputs `List` `List c/`
 
@@ -175,7 +198,7 @@ The `execute()` method in the `ListCompareCommand` class iterates through the li
 and compares it to a predefined list of all modules required to be completed by a computer engineering student. prints
 output completed and uncompleted modules in 2 separate lists using the `toString()` method of the mod class.
 
-Design Considerations:
+#### Design Considerations:
 * The list feature is implemented this way because we want to allow the user the ability to view their modules tracked
   as is or against the modules required to graduate.
 * Under `ListCompareCommand` we compare the list of modules tracked to a predefined list, populated on start up
@@ -187,11 +210,50 @@ Design Considerations:
 
 #### Sequence Diagram
 `List` command Sequence Diagram
-![img_2.png](list2.png)
+![img_10.png](ListCommand.png)
 
 `List c/` command Sequence Diagram 
-![img_1.png](list1.png)
+![img_10.png](ListCompareCommand.png)
 
+#### 4. Find Feature
+
+The FindCommand allows users to search for modules within their tracked list using a keyword. 
+The search is case-insensitive and matches any module whose name contains the provided keyword.
+
+**Implementation**
+The `execute()` method in the `FindCommand` class iterates through the list of modules tracked by the program,
+printing any module that contains the given module name.If no matches are found, a "No matching module found" message 
+is displayed to the user.
+
+#### Design Considerations:
+* The find feature implements a linear search method of searching for the given module.
+* Pros: Very simple to implement and maintain. It is perfectly efficient for a student's module list (typically < 100 modules).
+* Cons:  If the list were to grow to thousands of modules, $O(n)$ time complexity might become noticeable.
+* Alternative considered: Using a HashMap for $O(1)$ lookups.
+* Reason for skipping: Given that the module list is less than 100 modules for the CEG curriculum, using a hash map 
+serves no considerable benefit and would needlessly complicate the code hence more prone to implementation bugs.
+#### Sequence Diagram
+![img_10.png](Find.png)
+
+#### 5. Exempt Feature
+The ExemptCommand allows users to mark a specific module as Exempted. This is typically used for modules where the 
+student has received a waiver or credit transfer, meaning the module is considered "cleared" without a traditional 
+grade or progress tracking.
+
+**Implementation**
+
+The command performs a linear search through the taskList using the provided modName. The search is case-insensitive to 
+improve user experience.Once a matching module is found, the command calls mod.setToExempted(). This method 
+(internal to the Mod class) typically sets the module's status to a special "Exempted" state. To optimize performance, 
+the method uses a return statement immediately after finding and updating the module, preventing unnecessary iterations.
+If the loop completes without finding a match, the command provides feedback to the user stating that the module was not found.
+
+#### Design Considerations:
+* The design choice was made to encapsulate the "Exemption" logic within the Mod class rather than the ExemptCommand.
+* This ensures that when a module is exempted, all related data (like completion status or modular credits) is updated 
+consistently in one place, preventing "divergent change" bugs where the command forgets to update a specific flag.
+#### Sequence Diagram
+![img_10.png](Exempt.png)
 ### Christina's enchancements
 #### 4. Mark Feature
 
@@ -313,7 +375,7 @@ exit
 ```
 ##### Sequence Diagram
 
-![img_4.png](img_4.png)
+![img_10.png](Exit.png)
 The sequence diagram above shows how the exit command is handled:
 1. The user enters the `exit` command
 2. The input is parsed into an `ExitCommand`
