@@ -90,8 +90,14 @@ public class UiTest {
         ArrayList<Mod> completedList = new ArrayList<>();
         ArrayList<Mod> allModules = new ArrayList<>();
 
-        Mod mod1 = new Mod("CS1010", 1, 1, 4); // completed
-        Mod mod2 = new Mod("CS1231", 2, 2, 4); // not completed
+        // Create modules
+        Mod mod1 = new Mod("CS1010", 1, 1, 4);
+        Mod mod2 = new Mod("CS1231", 2, 2, 4);
+
+        // Mark mod1 as completed
+        mod1.setToDone();
+
+        // Add to lists
         completedList.add(mod1);
         allModules.add(mod1);
         allModules.add(mod2);
@@ -99,8 +105,9 @@ public class UiTest {
         this.ui.showList(completedList, allModules);
         String output = this.getOutput();
 
-        assertTrue(output.contains("CS1010"));
-        assertTrue(output.contains("CS1231"));
+        // Check for completed and incomplete modules
+        assertTrue(output.contains("✔ CS1010"), "Completed module should have a ✔");
+        assertTrue(output.contains("✘ CS1231"), "Incomplete module should have a ✘");
     }
 
     @Test
