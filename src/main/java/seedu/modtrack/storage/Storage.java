@@ -131,7 +131,8 @@ public class Storage {
             prereqText = parts[7];
 
             assert progress >= 0 && progress <= 100 : "Progress percentage must be between 0 and 100";
-            assert completionType.equals("NORMAL") || completionType.equals("EXEMPTED") || completionType.equals("TRANSFERRED")
+            assert completionType.equals("NORMAL") || completionType.equals("EXEMPTED") 
+                    || completionType.equals("TRANSFERRED")
                     : "Invalid completion type";
             assert prereqText != null : "Prerequisite text cannot be null";
         }
