@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import seedu.modtrack.commands.MarkCommand;
 import seedu.modtrack.commands.UnmarkCommand;
 import seedu.modtrack.module.Mod;
 import seedu.modtrack.ui.Ui;
@@ -67,5 +68,16 @@ class UnmarkCommandTest {
 
         String output = this.outContent.toString().trim();
         assertTrue(output.contains("No modules found in the list."), "Should handle missing modules gracefully");
+    }
+    @Test
+    void execute_emptyList_printsGracefulError() {
+        this.modList.clear();
+        UnmarkCommand command = new UnmarkCommand("CS2113");
+
+        command.execute(this.modList, this.ui);
+
+        String output = this.outContent.toString().trim();
+        assertTrue(output.contains("No modules found") ,
+                "Should handle empty list without crashing");
     }
 }
