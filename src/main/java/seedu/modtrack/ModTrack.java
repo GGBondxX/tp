@@ -60,7 +60,7 @@ public class ModTrack {
     }
 
     public static void main(String[] args) {
-        Logger.getLogger("seedu.modtrack").setLevel(Level.WARNING);
+        Logger.getLogger("seedu.modtrack").setLevel(Level.SEVERE);
         ModTrack modTrack = new ModTrack();
         modTrack.run();
     }
