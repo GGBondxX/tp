@@ -38,6 +38,7 @@ public class ListCompareCommand extends Command {
             if (isFulfilled) {
                 completed.add(reqMod);
             } else {
+                reqMod.setToUndone();
                 missing.add(reqMod);
             }
         }
