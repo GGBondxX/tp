@@ -50,7 +50,7 @@ public class ModTrack {
                     isRunning = false;
                 }
             } catch (InvalidCommandException e) {
-                this.ui.showInvalidCommandError();
+                this.ui.showInvalidCommandError(e);
             } catch (IOException e) {
                 this.ui.showSaveError();
             }

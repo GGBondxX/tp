@@ -3,6 +3,7 @@ package seedu.modtrack.ui;
 import java.util.ArrayList;
 
 import seedu.modtrack.module.Mod;
+import seedu.modtrack.parser.InvalidCommandException;
 
 public class Ui {
 
@@ -28,9 +29,10 @@ public class Ui {
                 + "'. Thankssssss!");
     }
 
-    public void showInvalidCommandError() {
-        System.out.println(
-                "Invalid command. Please input the instruction again begining with 'bye'.");
+    public void showInvalidCommandError(InvalidCommandException e) {
+        System.out.println("----------------------------------------------------");
+        System.out.println(e.getMessage());
+        System.out.println("----------------------------------------------------");
     }
 
     public void showInvalidNumberError() {
