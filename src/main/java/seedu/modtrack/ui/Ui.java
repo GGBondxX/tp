@@ -39,8 +39,12 @@ public class Ui {
         System.out.println("Error saving data. Please try again.");
     }
 
-    public void showNoModulesFound() {
+    public void showNoMatchingModulesFound() {
         System.out.println("No matching module found.");
+    }
+
+    public void showNoModulesFound() {
+        System.out.println("No modules found in the list.");
     }
 
     public void showExistingIncompleteModuleError(Mod existingMod) {
