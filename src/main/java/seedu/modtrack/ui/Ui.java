@@ -140,10 +140,12 @@ public class Ui {
         System.out.println(mod.getModName());
     }
 
-    public void showList(ArrayList<Mod> list) {
+    public void showList(ArrayList<Mod> list, int totalModuleCredits) {
         assert list != null : "Module list should not be null";
 
         System.out.println("===== Your Tracked Modules =====");
+        System.out.println("Total Modular Credits: " + totalModuleCredits);
+        System.out.println("Total Remaining Modular Credits: " + (160 - totalModuleCredits));
         if (list.isEmpty()) {
             System.out.println("No modules tracked yet.");
         } else {
