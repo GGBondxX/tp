@@ -63,7 +63,7 @@ The application consists of five main components:
 
 ### Component Initialization
 
-The **ModTrack** class (`Modtrack.java`) is responsible for launching the application and managing the lifecycle of each component.
+The **ModTrack** class (`ModTrack.java`) is responsible for launching the application and managing the lifecycle of each component.
 
 **At program start:**
 1. **Component Initialization**: `ModTrack` initializes the `UI`, `ReferenceList`, `Parser`, and `Storage`.
@@ -334,7 +334,7 @@ The following sequence diagram shows how a clear operation goes through the syst
 
 User inputs `List` `List c/`
 
-The List feature is executed by the `ListCommand.java` (`List`) or the `ListCompareCommand. java` (`List c/`) class.
+The List feature is executed by the `ListCommand.java` (`List`) or the `ListCompareCommand.java` (`List c/`) class.
 It extends from the abstract class `Command` and overrides the `execute()` method.
 
 **ListCommand implementation:**
