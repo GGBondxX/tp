@@ -665,13 +665,13 @@ This feature depends heavily on `add`, `delete`, `mark`, `unmark`, and `transfer
 
 #### Sequence Diagram
 
-![img_10.png](graduation requirement diagram.png)
+![ShowGradReqDiagram.png](graduation requirement diagram.png)
 The sequence diagram illustrates how graduation requirements are displayed:
-1. The user enters the `grad` command
-2. The Parser creates a `GradCommand`
-3. The command retrieves all modules from the list
-4. It computes completed and remaining requirements
-5. The results are formatted and displayed to the user
+1. The user enters the show grad req command.
+2. The Parser creates a ShowGradReqCommand.
+3. The command executes and delegates directly to ui.showGradReq().
+4. The UI retrieves and displays the graduation requirements to the user.
+5. The task list is not modified, and the main application continues its normal save flow.
 
 ## Product scope
 ### Target user profile
