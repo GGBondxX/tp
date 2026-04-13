@@ -67,8 +67,8 @@ class ListCommandTest {
 
         // Using assertEquals is more robust than assertTrue(contains) for short messages
         String expected = "===== Your Tracked Modules =====" + System.lineSeparator()
-                        + "Total Modular Credits: 4" + System.lineSeparator()
-                        + "Total Remaining Modular Credits: 156" + System.lineSeparator() + "No modules tracked yet.";
+                        + "Total Modular Credits: 0" + System.lineSeparator()
+                        + "Total Remaining Modular Credits: 160" + System.lineSeparator() + "No modules tracked yet.";
         assertEquals(expected.trim(), output);
     }
 
