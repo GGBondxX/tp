@@ -150,7 +150,8 @@ public class Ui {
         }
     }
 
-    public void showComparedList(ArrayList<Mod> completedModules, ArrayList<Mod> missingModules, ArrayList<Mod> extraModules) {
+    public void showComparedList(ArrayList<Mod> completedModules, ArrayList<Mod> missingModules,
+                                 ArrayList<Mod> extraModules) {
         assert completedModules != null : "Completed modules list should not be null";
         assert missingModules != null : "Missing modules list should not be null";
 
