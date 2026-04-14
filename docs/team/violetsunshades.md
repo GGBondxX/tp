@@ -54,7 +54,6 @@ User Input → Parser → Command → Model → UI
 ### 2. Feature Development (Version 2.0 Enhancements)
 
 Implemented multiple commands as below, that extend ModTrack into a structured academic planning tool:
-
 - AddPrereqCommand, ExemptCommand, FindCommand, ShowPrereqCommand, TransferCommand
 
 #### Prerequisite Management System (AddPrereq & ShowPrereq)
@@ -65,15 +64,10 @@ Implemented multiple commands as below, that extend ModTrack into a structured a
 - Impact: Transformed ModTrack from a flat list into a structured academic planner, Allow users to visualize module dependencies
 
 #### TransferCommand
-
 - Enables modules to be moved across categories or states, which required safe state transitions and consistency checks  
-
 #### ExemptCommand
-
 - Allows modules to be marked as exempted, which reflected real-world academic scenarios such as credit transfers  
-
 #### FindCommand
-
 - Implements keyword-based search, which improved usability for large datasets  
 
 ### 3. Developer Guide Contributions
@@ -81,7 +75,6 @@ Implemented multiple commands as below, that extend ModTrack into a structured a
 #### Command Documentation (Primary Author)
 
 Authored Developer Guide sections for: AddPrereqCommand, ShowPrereqCommand, TransferCommand, Mark, Unmark.
-
 Included details of: Parsing logic, Execution flow, Design rationale, and Limitations  for every command.
 
 #### Parser Architecture Documentation
@@ -127,5 +120,4 @@ Included details of: Parsing logic, Execution flow, Design rationale, and Limita
 ## Overall Contribution
 
 My contributions focused on both system-level architecture and feature-level development. I implemented the core infrastructure (Parser, Storage, execution pipeline), ensured successful system integration for Version 1.0, and expanded functionality through multiple Version 2.0 features.
-
 In addition, I contributed extensively to the Developer Guide and User Guide, strengthening the clarity, maintainability, and technical rigor of the project. Through these efforts, I helped transform ModTrack into a cohesive, well-documented, and extensible software system.
