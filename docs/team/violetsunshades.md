@@ -27,7 +27,6 @@ User Input → Parser → Command → Model → UI
 - Impact: Enforced a command-driven architecture, standardized execution flow across all features, reduced coupling between system components  
 
 #### Persistent Storage System
-
 - Implemented file-based storage (load/save)  
 
 **Technical Details:**
@@ -37,12 +36,10 @@ User Input → Parser → Command → Model → UI
 - Impact: Enabled persistence across sessions, prevented data loss, supported real-world usability of the application  
 
 #### Data Integrity: Duplicate Module Prevention
-
 - Implemented validation to prevent duplicate module entries  
 - Impact: Maintained a consistent and reliable data model, prevented downstream logical errors  
 
 #### System Integration & Conflict Resolution
-
 - Led integration of independently developed components into a stable system  
 
 **Key Contributions:**
