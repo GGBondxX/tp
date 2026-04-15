@@ -12,13 +12,21 @@ import java.util.logging.Logger;
  */
 public class ClearCommand extends Command {
     private static final Logger logger = Logger.getLogger(ClearCommand.class.getName());
+    private final String confirmation;
+
+    public ClearCommand(String confirmation) {
+        this.confirmation = confirmation;
+    }
 
     @Override
     public void execute(ArrayList<Mod> list, Ui ui) {
         // 1. Ask for confirmation via UI
-        if (!this.clearConfirmation(ui)) {
+        if (!this.confirmation.equalsIgnoreCase("yes")) {
+            ui.showCancelledClear();
             return;
         }
+
+        ui.showConfirmedClear();
 
         logger.log(Level.INFO, "User confirmed clear. Wiping list.");
         // Assertion: Verify the list exists before trying to clear it
@@ -29,15 +37,6 @@ public class ClearCommand extends Command {
         // Assertion: Post-condition verification to satisfy the dashboard check
         assert list.isEmpty() : "List should be empty after clear() is called";
 
-        ui.showDivider();
-        ui.showClearConfirmation();
-        ui.showDivider();
-
         logger.log(Level.INFO, "Successfully cleared all modules.");
-    }
-
-    public boolean clearConfirmation(Ui ui) {
-        String confirmation = ui.showClearConfirmationPrompt();
-        return confirmation.equalsIgnoreCase("yes");
     }
 }

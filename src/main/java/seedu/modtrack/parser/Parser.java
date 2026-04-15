@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import seedu.modtrack.commands.AddCommand;
 import seedu.modtrack.commands.AddPrereqCommand;
-import seedu.modtrack.commands.ClearCommand;
 import seedu.modtrack.commands.Command;
 import seedu.modtrack.commands.DeleteCommand;
 import seedu.modtrack.commands.ExemptCommand;
@@ -52,11 +51,6 @@ public class Parser {
             return this.parseList(arguments);
         case "show":
             return this.parseShow(arguments);
-        case "clear":
-            if (!arguments.isEmpty()) {
-                throw new InvalidCommandException("The 'clear' command does not take any arguments.");
-            }
-            return new ClearCommand();
         case "exit":
         case "bye":
             if (!arguments.isEmpty()) {
@@ -257,4 +251,3 @@ public class Parser {
     }
 
 }
-

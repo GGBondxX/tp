@@ -1,7 +1,6 @@
 package seedu.modtrack.ui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import seedu.modtrack.module.Mod;
 import seedu.modtrack.parser.InvalidCommandException;
@@ -196,21 +195,18 @@ public class Ui {
         this.showDivider();
     }
 
-    public String showClearConfirmationPrompt() {
+    public void showClearConfirmationPrompt() {
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println("WARNING: This will delete ALL tracked modules.");
         System.out.print("Are you sure? (type 'yes' to confirm): ");
+    }
 
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine().trim().toLowerCase();
+    public void showCancelledClear() {
+        System.out.println("Clear operation cancelled. No changes made.");
+    }
 
-        if (input.equals("yes")) {
-            System.out.println("Confirmed. Proceeding to clear all modules.");
-        } else {
-            System.out.println("Clear operation cancelled. No changes made.");
-        }
-        scanner.close();
-        return input;
+    public void showConfirmedClear() {
+        System.out.println("Confirmed. Proceeding to clear all modules.");
     }
 
     public void showGradReq() {

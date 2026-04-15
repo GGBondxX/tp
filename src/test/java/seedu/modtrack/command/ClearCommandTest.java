@@ -50,7 +50,8 @@ public class ClearCommandTest {
     public void execute_populatedList_clearsAllModules() {
 
         this.provideInput("yes\n");
-        ClearCommand command = new ClearCommand();
+        String confirmation = "yes";
+        ClearCommand command = new ClearCommand(confirmation);
         command.execute(this.list, this.ui);
 
         // Verify list state
@@ -65,8 +66,9 @@ public class ClearCommandTest {
     @Test
     public void execute_emptyList_remainsEmpty() {
         this.provideInput("yes\n");
+        String confirmation = "yes";
         ArrayList<Mod> emptyList = new ArrayList<>();
-        ClearCommand command = new ClearCommand();
+        ClearCommand command = new ClearCommand(confirmation);
 
         command.execute(emptyList, this.ui);
 
@@ -79,7 +81,8 @@ public class ClearCommandTest {
         this.provideInput("no\n");
 
         int originalSize = this.list.size();
-        ClearCommand command = new ClearCommand();
+        String confirmation = "no";
+        ClearCommand command = new ClearCommand(confirmation);
         command.execute(this.list, this.ui);
 
         // Verify list state - Should NOT be empty

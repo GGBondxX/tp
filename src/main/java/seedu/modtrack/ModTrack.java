@@ -38,9 +38,23 @@ public class ModTrack {
         this.ui.showOpeningText();
 
         while (isRunning) {
-            String instruction = in.nextLine();
+            String instruction = in.nextLine().trim();
 
             try {
+                if (instruction.equalsIgnoreCase("clear")) {
+                    this.ui.showClearConfirmationPrompt();
+
+                    if (!in.hasNextLine()) {
+                        break;
+                    }
+
+                    String confirmation = in.nextLine().trim();
+                    Command clearCommand = new seedu.modtrack.commands.ClearCommand(confirmation);
+                    clearCommand.execute(this.taskList, this.ui);
+                    this.storage.save(this.taskList);
+                    continue;
+                }
+
                 Command command = this.parser.parse(instruction);
                 command.execute(this.taskList, this.ui);
 
